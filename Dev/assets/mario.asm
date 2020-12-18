@@ -1,4 +1,4 @@
-.model small, stdcall
+.model medium, stdcall
 .stack 100h
 .data
     skin DB 14d

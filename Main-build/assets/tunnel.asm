@@ -1,4 +1,4 @@
-.model small, stdcall
+.model medium, stdcall
 .stack 100h
 .data
     lightGreen DB 48d

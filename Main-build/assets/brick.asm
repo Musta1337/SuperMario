@@ -1,5 +1,5 @@
 
-.model small, stdcall
+.model medium, stdcall
 .stack
 .data
     brickBlack byte 00d        ;black

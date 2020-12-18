@@ -1,27 +1,34 @@
-.model large, stdcall
+.model medium, stdcall
 .stack 120h
 .data
-    B1 byte 01d        ;black
-    B2 byte 185d         ; brown  
+    blockBlack byte 00d        ;black
+    blockBrown byte 185d         ; brown  
     comp word 0
 
 .code
 drawBlock proc x:word, y:word
+
+    push AX
+    push BX
+    push CX
+    push DX
+    push SI
+    push DI
+
     mov AX, @data
     mov DS, AX
 
     mov CX, x
-    mov DX, x
+    mov DX, y
     push CX
     mov ah, 0ch
-
+    mov comp, 0
     BLOOP:
 
-    push CX
     cmp comp,2
-    JE Exit
-
-    mov al,B1
+    JE Exi
+    push CX
+    mov al,blockBlack
     int 10h
     inc CX
     int 10h
@@ -66,31 +73,11 @@ drawBlock proc x:word, y:word
     mov BX,0
 
 BL1:
-    push CX
     cmp BX,3
     JE BL2
+    push CX
 
-    mov al,B2
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-
-    mov al,B1
-    int 10h
-    inc CX
-
-    mov al,B2
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-    int 10h
-    inc CX
+    mov al,blockBrown
     int 10h
     inc CX
     int 10h
@@ -98,11 +85,31 @@ BL1:
     int 10h
     inc CX
 
-    mov al,B1
+    mov al,blockBlack
     int 10h
     inc CX
 
-    mov al,B2
+    mov al,blockBrown
+    int 10h
+    inc CX
+    int 10h
+    inc CX
+    int 10h
+    inc CX
+    int 10h
+    inc CX
+    int 10h
+    inc CX
+    int 10h
+    inc CX
+    int 10h
+    inc CX
+
+    mov al,blockBlack
+    int 10h
+    inc CX
+
+    mov al,blockBrown
     int 10h
     inc CX
     int 10h
@@ -119,10 +126,9 @@ jmp BL1
 BL2:
     pop CX
     push CX
-    dec DX
 
     ;row5
-    mov al,B1
+    mov al,blockBlack
     int 10h
     inc CX
     int 10h
@@ -164,12 +170,11 @@ BL2:
     mov BX,0
 
 BL3:
-
-    push CX
     cmp BX,3
     JE BL4
+    push CX
     
-    mov al,B2
+    mov al,blockBrown
     int 10h
     inc CX
     int 10h
@@ -185,11 +190,11 @@ BL3:
     int 10h
     inc CX
 
-    mov al,B1
+    mov al,blockBlack
     int 10h
     inc CX
 
-    mov al,B2
+    mov al,blockBrown
     int 10h
     inc CX
     int 10h
@@ -205,7 +210,7 @@ BL3:
     int 10h
     inc CX
 
-    mov al,B1
+    mov al,blockBlack
     int 10h
 
     dec DX
@@ -218,9 +223,8 @@ BL4:
 
     pop CX
     push CX
-    dec DX
 
-    mov al,B1
+    mov al,blockBlack
     int 10h
     inc CX
     int 10h
@@ -256,9 +260,18 @@ BL4:
     dec DX
     add comp,1
     pop CX
-
 jmp BLOOP
+Exi:
+    pop CX
+    pop DI
+    pop SI
+    pop DX
+    pop CX
+    pop BX
+    pop AX
+
 
     ret
+
 drawBlock endp
 end

@@ -1,4 +1,4 @@
-.model small, stdcall
+.model medium, stdcall
 .stack 120h
 .data
     flipSkin DB 14d
