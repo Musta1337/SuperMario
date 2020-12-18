@@ -1,0 +1,1 @@
+drawMario PROTO :WORD, :WORD

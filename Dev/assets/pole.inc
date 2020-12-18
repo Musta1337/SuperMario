@@ -1,0 +1,1 @@
+drawPole PROTO :WORD, :WORD

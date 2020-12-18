@@ -1,0 +1,1 @@
+drawBrick PROTO :WORD, :WORD

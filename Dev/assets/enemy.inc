@@ -1,0 +1,1 @@
+drawEnemy PROTO :WORD, :WORD

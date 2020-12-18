@@ -1,0 +1,1 @@
+drawMonster PROTO :WORD, :WORD
