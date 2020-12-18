@@ -1,5 +1,6 @@
 1. Put compile.bat in your bin folder where ml.exe exist.
-2. Run DOSBOX.
-3. Run compile.bat
-4. wait for compilation and press enter when required.
-5. run driver.exe
+2. Put the files and folder in "Proj" folder at BIN folder.
+3. Run DOSBOX.
+4. Run compile.bat
+5. wait for compilation and press enter when required.
+6. run driver.exe
