@@ -2,7 +2,7 @@
 .stack 120h
 .data
     enemySkin DB 6d
-    Eclothes1 byte 01d
+    Eclothes1 byte 00d
     Eclothes2 byte 15d
 .code
 

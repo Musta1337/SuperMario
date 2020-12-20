@@ -2,7 +2,7 @@
 .stack 120h
 .data
     Mcolor1 byte 2d     ;green
-    Mcolor2 byte 1d     ;black      ;blue instead of white
+    Mcolor2 byte 15d     ;black      ;blue instead of white
     Mcolor3 byte 4d     ;brownn
     Mcolor4 byte 15d    ;white
 

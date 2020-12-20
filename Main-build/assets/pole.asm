@@ -15,21 +15,17 @@ drawPole proc x:word, y:word
     mov AX, @data
     mov DS, AX
 
-
     mov CX, x
     mov DX, y
     mov ah, 0ch
-
+    mov al,polecolor
     
     mov BX,1
     L1:
+        cmp BX, 155
+        je flagExit
         push CX
-        cmp BX,170
-        je Exit
 
-        mov al,polecolor
-        int 10h
-        inc CX
         int 10h
         inc CX
         int 10h
@@ -39,7 +35,7 @@ drawPole proc x:word, y:word
         inc BX
         pop CX
     jmp L1
-Exit:
+flagExit:
 
     pop DI
     pop SI

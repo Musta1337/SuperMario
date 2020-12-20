@@ -17,7 +17,7 @@ drawWMario proc x:word, y:word
     mov AX, @data
     mov DS, AX
 
-
+    sub x, 4
     mov CX, x
     mov DX, y
     push CX
@@ -25,7 +25,7 @@ drawWMario proc x:word, y:word
 
 
 
-    mov al, wclothes1
+    mov al, wclothes1           ;row 1
     add CX,2
     int 10h
     add CX, 3
@@ -40,7 +40,7 @@ drawWMario proc x:word, y:word
     int 10h
     
 
-    pop CX
+    pop CX                      ;row 2
     push CX
     dec DX
     add CX,2
@@ -70,7 +70,7 @@ drawWMario proc x:word, y:word
     int 10h
     
 
-    pop CX
+    pop CX          ;row 3
     push CX
     dec DX
     add CX,3
@@ -112,7 +112,7 @@ drawWMario proc x:word, y:word
     int 10h
     
 
-    pop CX
+    pop CX          ;row 4
     push CX
     dec DX
     add CX,2
@@ -155,7 +155,8 @@ drawWMario proc x:word, y:word
     inc CX
     int 10h
 
-    pop CX
+
+    pop CX          ;row 5
     push CX
     dec DX
     add CX,1
@@ -210,7 +211,7 @@ drawWMario proc x:word, y:word
     int 10h
 
 
-    pop CX
+    pop CX              ;row 6
     push CX
     dec DX
     add CX,1
@@ -253,11 +254,7 @@ drawWMario proc x:word, y:word
     int 10h
     
 
-
-
-
-
-    pop CX
+    pop CX              ;row 7
     push CX
     dec DX
     add CX,2
@@ -302,7 +299,7 @@ drawWMario proc x:word, y:word
     int 10h    
 
 
-    pop CX
+    pop CX                  ;row 8
     push CX
     dec DX
     add CX,2
@@ -343,14 +340,13 @@ drawWMario proc x:word, y:word
     int 10h
     inc CX
 
-
-
-
+    ;row 9
 
     pop CX
     push CX
     dec DX
-    add CX,8
+
+    add CX,7
 
     mov al,wskin
     int 10h
@@ -365,17 +361,19 @@ drawWMario proc x:word, y:word
     inc CX
     int 10h
     inc CX
+    int 10h 
+    inc CX
     int 10h
     inc CX
 
     mov al,wclothes1
-    int 10h
+    int 10h 
 
-
-
+    ;row 10
     pop CX
     push CX
     dec DX
+
     add CX,5
 
     mov al,wclothes1
@@ -383,8 +381,6 @@ drawWMario proc x:word, y:word
     inc CX
     int 10h
     inc CX
-    int 10h
-    inc CX
 
     mov al,wskin
     int 10h
@@ -395,7 +391,7 @@ drawWMario proc x:word, y:word
     inc CX
     int 10h
     inc CX
-    int 10h
+    int 10h 
     inc CX
 
     mov al,wclothes1
@@ -407,26 +403,23 @@ drawWMario proc x:word, y:word
     inc CX
     int 10h
     inc CX
-    int 10h
+    int 10h 
     inc CX
-  
 
 
-
+    ;row 11
     pop CX
     push CX
     dec DX
+
     add CX,5
 
     mov al,wclothes1
     int 10h
     inc CX
-    int 10h
-    inc CX
-    
 
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
 
     mov al,wclothes1
@@ -435,51 +428,45 @@ drawWMario proc x:word, y:word
     int 10h
     inc CX
 
-
-
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
+    inc CX
+    int 10h 
     inc CX
 
     mov al,wclothes1
     int 10h
     inc CX
 
-
-
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
     inc CX
-    int 10h
-    inc CX
-    
+
     mov al,wclothes1
-    int 10h
+    int 10h 
     inc CX
 
-
+        ;row 12
     pop CX
     push CX
     dec DX
+
     add CX,5
 
     mov al,wclothes1
     int 10h
     inc CX
-    int 10h
-    inc CX
-    
 
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
 
     mov al,wclothes1
@@ -487,171 +474,154 @@ drawWMario proc x:word, y:word
     inc CX
 
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
     inc CX
-   
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
 
-    mov al,wclothes1
-    int 10h
-    inc CX
+    mov al,wclothes1        ;eye
     int 10h
     inc CX
 
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-    int 10h
+    int 10h 
     inc CX
 
-    mov al,wclothes1     ;arm check
-    int 10h
+    mov al,wclothes1
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
     inc CX
-    
 
-
-
+    ;row 13
     pop CX
     push CX
     dec DX
+
     add CX,6
 
     mov al,wclothes1
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-    
-
-    mov al,wskin
-    int 10h
-    inc CX
-    int 10h
-    inc CX
-  
-    mov al,wclothes1
-    int 10h
+    int 10h 
     inc CX
     int 10h 
-    inc CX 
+    inc CX
+    int 10h 
+    inc CX
 
     mov al,wskin
-    int 10h
+    int 10h 
     inc CX
-    int 10h
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+
+    
+    mov al,wclothes1            ;eye
+    int 10h 
+    inc CX
+
+    mov al,wskin
+    int 10h 
     add CX,2
 
-    mov al,wclothes1             ;arm
-    int 10h
+    mov al,wclothes1
+    int 10h 
     inc CX
     int 10h 
-    inc CX 
+    inc CX
     int 10h 
-    inc CX 
+    inc CX
+
+                ;row 14
+    pop CX
+    push CX
+    dec DX
+
+    add CX,6
+
+    mov al,wclothes2
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+
+    mov al,wskin
+    int 10h 
+    inc CX
+    int 10h 
+
+                ;row 15
+    pop CX
+    push CX
+    dec DX
+
+    add CX,7
+
+     mov al,wclothes2
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+    add CX,3
+
+
+    mov al,wskin
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
+    int 10h 
+
+    ;row 16
+
+    pop CX
+    push CX
+    dec DX
+
+    add CX,15
+
+    mov al,wskin
+    int 10h 
+    inc CX
+    int 10h 
+    inc CX
     int 10h 
     
 
 
 
-
-    pop CX
-    push CX
-    dec DX
-    add CX,5
-
-    mov al,wclothes2             
-    int 10h
-    inc CX
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX
-
-    mov al,wskin             
-    int 10h
-    inc CX
-    int 10h 
-    inc CX
-    int 10h 
-    inc CX  
-
-
-
-
-    pop CX
-    push CX
-    dec DX
-    add CX,7
-
-    mov al,wclothes2             
-    int 10h
-    inc CX
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX
-    int 10h 
-    inc CX 
-    int 10h 
-    inc CX 
-    int 10h 
-    add CX,4 
-
-    mov al,wskin             
-    int 10h
-    inc CX
-    int 10h 
-    inc CX
-    int 10h 
-    inc CX      
-
-
-
-
-
-    pop CX
-    push CX
-    dec DX
-    add CX,17
-
-    mov al,wskin             
-    int 10h
-    inc CX
-    int 10h 
-    inc CX
-    int 10h 
-    inc CX      
 
     pop CX
 

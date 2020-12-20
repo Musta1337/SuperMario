@@ -31,7 +31,7 @@ printEPole proc
 printEPole endp
 
 
-drawTunnel proc x:word, y:word, upperHeight:word, lowerHeight:word
+drawTunnel proc x:word, y:word, lowerHeight:word, upperHeight:word
 
     push AX
     push BX
