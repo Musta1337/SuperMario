@@ -1,0 +1,1 @@
+drawFire PROTO :WORD, :WORD

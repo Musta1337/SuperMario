@@ -59,6 +59,7 @@ BOWSER_DEFAULT_Y=50d
 include assets/brick.inc
 include assets/block.inc
 include assets/enemy.inc
+include assets/fire.inc
 include assets/flag.inc
 include assets/flips.inc
 include assets/flipwalk.inc
@@ -66,30 +67,48 @@ include assets/mario.inc
 include assets/monster.inc
 include assets/pole.inc
 include assets/tunnel.inc
-include assets/walkm.inc
+include assets/w.inc
 ;INCLUDE END
 
 .stack
 .data
     marioX word ?
     marioY word ?
+    
+    
     availX word ?
     availY word ?
     availJumpHeight word ?
+    
     enemyX word ?
     enemyTwoX word ?
     enemyY word ?
+    
     level word ?
     newlevel word ?
+    
+    
     isJump word ?
     jumpDir word ?
     movDir word ?
+
     boolHandler word ?
+    
+
     enemyMovDir word ?
     enemyTwoDir word ?
+    
+
     bowserX word ?
     bowserY word ?
     bowserMovDir word ?
+
+
+    fireTargetX word ?
+    fireTargetY word ?
+    fireBool word ?
+    fireX word ?
+    fireY word ?
 .code
 
 delay proc
@@ -131,6 +150,221 @@ setRate proc
     pop AX
     ret
 setRate endp
+
+drawKingdom proc X:word,Y:word
+
+    push AX
+    push BX
+    push CX
+    push DX
+    push SI
+    push DI
+
+    mov AX, @data
+    mov DS, AX
+
+    mov CX, X
+    mov DX, Y
+    push CX
+
+    mov ah, 0ch
+    
+    invoke drawBlock,X,Y
+    add CX,16
+
+    invoke drawBlock,CX,Y
+    add CX,16
+
+    mov BX,0
+    mov DX,Y
+    KL1:
+    cmp BX,34              ;for height of gate
+    JE KL2
+    push CX
+
+    mov al,04d
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+
+    inc BX
+    dec DX
+    pop CX
+
+    jmp KL1
+
+KL2:
+    add CX,16
+    mov DX,Y
+
+    invoke drawBlock,CX,Y
+    add CX,16
+
+    invoke drawBlock,CX,Y
+    add CX,16
+
+ 
+
+
+    pop CX              ;row 2
+    push CX
+    sub DX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+        mov al,04d
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+    int 10h  
+    inc CX
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    
+    ;row 3
+     pop CX              
+    push CX
+    sub DX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+    invoke drawBlock,CX,DX
+    add CX,16
+
+
+    ;row 4
+
+    pop CX
+    push CX
+    sub DX,16
+
+    invoke drawBlock,CX,DX
+    add CX,32
+
+    invoke drawBlock,CX,DX
+    add CX,32
+
+    invoke drawBlock,CX,DX
+
+
+
+    ;row 5 (pole)
+
+    pop CX
+    push CX
+    sub DX,18
+    add CX,39
+
+    mov BX,0
+
+    KL3:
+        cmp BX,15
+        JE KL4
+
+        push CX
+        mov al, 15d
+        int 10h
+
+        dec DX
+        inc BX
+        pop CX
+        jmp KL3
+
+    KL4:
+        pop CX
+        push CX
+        add CX,24
+
+        invoke drawFlag,CX,DX
+
+    pop CX
+
+    pop DI
+    pop SI
+    pop DX
+    pop CX
+    pop BX
+    pop AX
+
+    ret
+
+drawKingdom endp
+
 
 displayFloorTiles proc
     push AX
@@ -175,6 +409,8 @@ setScene proc
     .IF level != 3
         invoke drawPole, DEFAULT_FLAG_X, DEFAULT_FLAG_Y
         invoke drawFlag, 300d, DEFAULT_FLAG_HEIGHT
+    .ELSEIF level == 3
+        invoke drawKingdom, 240d, 168d
     .ENDIF
     pop DX
     pop CX
@@ -224,8 +460,15 @@ main proc
     ;BOWSER
     mov bowserX, BOWSER_DEFAULT_X
     mov bowserY, BOWSER_DEFAULT_Y
-
     mov bowserMovDir, 1
+
+
+    ;FIREEEEEEEEEEEEEEEEEE
+    mov fireX, BOWSER_DEFAULT_X
+    mov fireY, BOWSER_DEFAULT_Y
+    mov fireTargetX, 0
+    mov fireTargetY, 0
+    mov fireBool, 0
 
     ;Initial Background calling.
     invoke setScene
@@ -286,12 +529,10 @@ main proc
 
             ;Level two onward content end.
 
-
-
             .IF level == 3
 
                 mov BX, bowserX
-                .IF BX == 30d
+                .IF BX == 10d
                     mov bowserMovDir, 1
                 .ELSEIF BX == 280d
                     mov bowserMovDir, 2
@@ -302,8 +543,53 @@ main proc
                 .ELSEIF bowserMovDir == 2
                     sub bowserX, 2
                 .ENDIF
+                
+                .IF fireBool == 1
+                    mov BX, marioX
+                    mov DX, fireY
+                    .IF (BX >= fireX && BX <= fireX + 18) && ((DX <= marioY + 8 && DX >= marioY - 8) || DX == marioY)
+                        mov newLevel, 1
+                    .ENDIF
+                .ENDIF
+
+                .IF fireBool == 1
+                    mov BX, fireTargetX 
+                    .IF BX < fireX
+                        sub fireX, 1
+                    .ELSEIF BX > fireX
+                        add fireX, 1
+                    .ENDIF
+                    mov DX, fireTargetY
+                    .IF DX < fireY
+                        sub fireY, 1
+                    .ELSEIF DX > fireY
+                        add fireY, 1
+                    .ENDIF
+                    .IF (fireX == BX) && (fireY == DX)
+                        mov fireBool, 0
+                    .ENDIF
+                .ENDIF
+
+                .IF fireBool == 0
+                    mov BX, marioX
+                    mov DX, marioY
+                    mov fireTargetX, BX
+                    mov fireTargetY, DX
+                    mov BX, bowserX
+                    mov DX, bowserY
+                    mov fireX, BX
+                    mov fireY, DX
+                    mov fireBool, 1
+                .ENDIF
+                .IF fireBool == 1
+                    invoke drawFire, fireX, fireY
+                .ENDIF
 
                 invoke drawMonster, bowserX, bowserY
+
+                .IF marioX >= 272d
+                    jmp outerLoop
+                .ENDIF
             .ENDIF
         .ENDIF
 
@@ -314,10 +600,18 @@ main proc
             inc level
             mov marioX, DEFAULT_MARIO_X
             mov marioY, DEFAULT_FLAG_Y
+            mov isJump, 0
+            mov jumpDir, 1
+            mov availJumpHeight, 108d
+            mov fireBool, 0
         .ELSEIF BX < level
             mov marioX, DEFAULT_MARIO_X
             mov marioY, DEFAULT_MARIO_Y
             mov level, 1
+            mov isJump, 0
+            mov jumpDir, 1
+            mov availJumpHeight, 108d
+            mov fireBool, 0
         .ENDIF
         ;New level detection end.
         .IF level != 3 && marioX >= DEFAULT_FLAG_X - 8
@@ -330,7 +624,7 @@ main proc
             sub marioY, 2
         .ENDIF
         mov BX, marioY
-        .IF BX == availJumpHeight
+        .IF BX <= availJumpHeight
             mov jumpDir, 2
         .ENDIF
         .IF isJump == 1 && jumpDir == 2
@@ -361,7 +655,7 @@ main proc
 
         ;Mario jumping down from tunnel detection or landing on tunnel.
         mov BX, marioY
-        .IF (isJump == 0) && BX < availY && !(marioY > DEFAULT_MARIO_Y)
+        .IF (isJump == 0) && BX < availY && (marioY < DEFAULT_MARIO_Y)
             add marioY, 2
         .ENDIF
         ;Mario Jumping End.
@@ -405,7 +699,9 @@ main proc
         .ELSEIF AH == LEFT
             mov BX, marioY
             .IF !(BX > availY) 
-                sub marioX, 2
+                .IF !(marioX < 2)
+                    sub marioX, 2
+                .ENDIF
                 invoke drawWBackward, marioX, marioY
                 mov movDir, 2
             .ENDIF

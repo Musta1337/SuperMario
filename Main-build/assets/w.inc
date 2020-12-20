@@ -1,0 +1,1 @@
+drawWMario PROTO :WORD, :WORD

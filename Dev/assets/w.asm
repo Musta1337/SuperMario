@@ -17,7 +17,7 @@ drawWMario proc x:word, y:word
     mov AX, @data
     mov DS, AX
 
-
+    sub x, 4
     mov CX, x
     mov DX, y
     push CX
@@ -635,15 +635,4 @@ drawWMario proc x:word, y:word
     ret
 
 drawWMario endp
-
-.STARTUP
-main proc
-    mov ah, 0
-    mov al, 13h
-    int 10h
-invoke drawWMario,160,100
-
-
-main endp
-.EXIT
 end
